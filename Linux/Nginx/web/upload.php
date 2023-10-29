@@ -10,8 +10,8 @@ if (!empty($_FILES)){
         die('Định dạng file này không được hỗ trợ.');
     }
 
-    if($_FILES['file_upload']['size'] > 1000){
-        die('Dịch vụ chỉ hỗ trợ upload file dưới 1kb.');
+    if($_FILES['file_upload']['size'] > 100000){
+        die('Dịch vụ chỉ hỗ trợ upload file dưới 100kb.');
     }
 
     if(!is_uploaded_file($_FILES['file_upload']['tmp_name'])) {
@@ -25,7 +25,7 @@ if (!empty($_FILES)){
 	
     $new_name = __DIR__ . '/uploadfiles/' . md5($_FILES['file_upload']['name']) . ".{$ext}";
     if(!move_uploaded_file($_FILES['file_upload']['tmp_name'], $new_name)){
-        die('Có lỗi xảy ra, vui lòng liên lạc với d4rkmod3 để được hỗ trợ.');
+        die('Có lỗi xảy ra, vui lòng liên lạc với admin để được hỗ trợ.');
     }
 
     die('Upload file thành công, file của bạn sẽ nằm tại đường dẫn: ' . $new_name);
