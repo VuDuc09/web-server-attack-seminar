@@ -10,8 +10,8 @@ if (!empty($_FILES)){
         die('Định dạng file này không được hỗ trợ.');
     }
 
-    if($_FILES['file_upload']['size'] > 100000){
-        die('Dịch vụ chỉ hỗ trợ upload file dưới 100kb.');
+    if($_FILES['file_upload']['size'] > 1000000){
+        die('Dịch vụ chỉ hỗ trợ upload file dưới 1000kb.');
     }
 
     if(!is_uploaded_file($_FILES['file_upload']['tmp_name'])) {
@@ -22,13 +22,24 @@ if (!empty($_FILES)){
     if (!in_array($ext, ['gif', 'png', 'jpg', 'jpeg'])) {
         die('Dịch vụ chỉ hỗ trợ định dạng gif, png, jpg, jpeg.');
     }
+
+    $gen_filename = md5($_FILES['file_upload']['name']) . ".{$ext}";
 	
-    $new_name = __DIR__ . '/uploadfiles/' . md5($_FILES['file_upload']['name']) . ".{$ext}";
+    $new_name = __DIR__ . '/uploadfiles/' . $gen_filename;
     if(!move_uploaded_file($_FILES['file_upload']['tmp_name'], $new_name)){
         die('Có lỗi xảy ra, vui lòng liên lạc với admin để được hỗ trợ.');
     }
 
-    die('Upload file thành công, file của bạn sẽ nằm tại đường dẫn: ' . $new_name);
+    if(isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+        $url = "https://"; 
+    }           
+    else  {
+        $url = "http://";   
+        // Append the host(domain name, ip) to the URL.   
+        $url.= $_SERVER['HTTP_HOST'];   
+        $url.= "/uploadfiles/" . $gen_filename;    
+    }
+    die('Upload file thành công, xem file tại <a href="' . $url . '">' . $url . '</a>');
 }
 ?>
 
