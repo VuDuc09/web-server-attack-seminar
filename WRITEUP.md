@@ -14,7 +14,7 @@
 
 - Osint trên google về các lỗi bảo mật của phiên bản **Apache 2.4.49** ta tìm được *CVE-2021-41773* về lỗi Path Traversal:
 
-:![Kết quả tra cứu google](images/apache_3.jpg):
+![Kết quả tra cứu google](images/apache_3.jpg)
 
 - Lỗi này xảy ra khi phiên bản này không kiểm tra được đầy đủ các kĩ thuật encoding url truyền vào. Cụ thể ở đây phiên bản này ko nhận ra dấu chấm thứ hai do đó không hiểu được `.%2/` là `../`.
 - Dùng lệnh curl cùng với bypass `.%2/` để đọc file passwd (Ta có thể truy xuất trực tiếp file này nên dự đoán web này còn có lỗi miss config khi cho phép mọi user truy cập trực tiếp được đến các file trong directory của nó. Ví dụ như config Require all granted):
