@@ -3,6 +3,7 @@
 ## Apache Server
 *Target:* 
 - Đọc được nội dung file /etc/passwd
+
 *Process:*
 - Đề bài cho chúng ta một trang web giới thiệu về một công ty nào đó, web có các chức năng giới thiệu về công ty. 
 ![Giao diện trang web](images/apache_1.jpg)
@@ -13,6 +14,7 @@
 - Lỗi này xảy ra khi phiên bản này không kiểm tra được đầy đủ các kĩ thuật encoding url truyền vào. Cụ thể ở đây phiên bản này ko nhận ra dấu chấm thứ hai do đó không hiểu được `.%2/` là `../`.
 - Dùng lệnh curl cùng với bypass `.%2/` để đọc file passwd (Ta có thể truy xuất trực tiếp file này nên dự đoán web này còn có lỗi miss config khi cho phép mọi user truy cập trực tiếp được đến các file trong directory của nó. Ví dụ như config Require all granted):
 ![Nội dung file passwd](images/apache_4.jpg)
+
 *Flag:*  F1301{Apache2_ư3b_s3rv3r_vuln_1337}
 
 ## Nginx Server
